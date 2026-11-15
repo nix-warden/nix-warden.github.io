@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NixWarden — Security Platform Architect & Detection and Response Engineering. Specializing in SIEM/SOAR automation, TB-scale OpenSearch/Wazuh telemetry optimization, and cloud-native security workflows.">
+  <meta name="keywords" content="Security Platform Architect, Detection Engineering, Incident Response, Wazuh, SIEM, SOAR, OpenSearch, AWS, Proxmox, WireGuard, CompTIA Security+, CHFI v11, Cyber Kill Chain, NIST SP 800-61, ISO 27001, NixWarden">
+  <meta name="author" content="NixWarden">
+  <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1014" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NixWarden — Security Platform Architect">
+  <meta property="og:description" content="Security Platform Architect & Detection and Response Engineering. SIEM/SOAR automation, TB-scale OpenSearch/Wazuh telemetry optimization, and digital forensics.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NixWarden — Security Platform Architect">
+  <meta name="twitter:description" content="Security Platform Architect & Detection and Response Engineering. SIEM/SOAR automation, OpenSearch/Wazuh telemetry, and digital forensics.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2314181f'/%3E%3Crect x='2' y='2' width='60' height='60' rx='8' fill='none' stroke='%23c5a572' stroke-width='2'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' fill='%23c5a572' font-family='monospace' font-size='26' font-weight='600'%3ENW%3C/text%3E%3C/svg%3E">
+  <title>NixWarden — Security Platform Architect</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('nw-theme');
+        if (saved === 'dark') document.documentElement.dataset.theme = 'dark';
+      } catch {}
+    })();
+  </script>
+</head>
+<body>
+  <!-- Inline SVG Symbol Sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+      <path d="M4 7h16M4 12h16M4 17h16"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14M13 6l6 6-6 6"/>
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M6 11l6-6 6 6"/>
+    </symbol>
+    <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    </symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/>
+    </symbol>
+    <symbol id="icon-medium" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12Zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42ZM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12Z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <path d="M3 7l9 6 9-6"/>
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2"/>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </symbol>
+  </svg>
+
+  <!-- Header -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-mark" aria-hidden="true">NW</span>
+        <span class="brand-name">NixWarden</span>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-role">Security Architecture</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#credentials" class="nav-link">Credentials</a>
+        <a href="#repositories" class="nav-link">Repositories</a>
+        <a href="#writing" class="nav-link">Writing</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#contact" class="nav-link nav-cta">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#icon-moon"/></svg>
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#icon-sun"/></svg>
+          <span class="theme-toggle-label">Dark</span>
+        </button>
+
+        <button type="button" class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="icon icon-menu" aria-hidden="true"><use href="#icon-menu"/></svg>
+          <svg class="icon icon-close" aria-hidden="true"><use href="#icon-close"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <p class="hero-eyebrow">Security Platform Architect · Detection &amp; Response Engineering</p>
+
+        <h1 class="hero-title">
+          Deterministic security infrastructure, detection engineering, and high-throughput telemetry.
+        </h1>
+
+        <p class="hero-description">
+          Designing and scaling telemetry pipelines, SIEM/SOAR platforms, and automated incident response workflows—aligning enterprise compliance (<strong>ISO/IEC 27001</strong>, <strong>PCI DSS</strong>, <strong>NIST SP 800-61</strong>) with pragmatic systems engineering.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#repositories" class="btn btn-primary">
+            Explore Repositories <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </a>
+          <a href="https://github.com/nix-warden" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-github"/></svg> GitHub
+          </a>
+          <a href="https://medium.com/@NixWarden" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-medium"/></svg> Medium
+          </a>
+          <a href="mailto:nixwarden@protonmail.com" class="btn btn-ghost">
+            <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg> Encrypted Mail
+          </a>
+        </div>
+
+        <div class="hero-credentials-strip">
+          <span>CompTIA Security+ ce</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>EC-Council CHFI v11</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>Cyber Kill Chain &amp; NIST SP 800-61</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>3 Technical Publications</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Outcomes Strip -->
+    <section class="outcomes-section" aria-label="Key architectural outcomes">
+      <div class="container">
+        <div class="outcomes-grid">
+          <div class="outcome-item">
+            <div class="outcome-value">&gt;95%</div>
+            <div class="outcome-label">auditd Volume Reduction</div>
+            <div class="outcome-detail">Targeted rule tuning &amp; Wazuh FIM offload without observability loss</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-value">Kill Chain</div>
+            <div class="outcome-label">Escalation Architecture</div>
+            <div class="outcome-detail">Real-time detection mapping &amp; deterministic SOAR response</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-value">4+ Years</div>
+            <div class="outcome-label">Defense Engineering</div>
+            <div class="outcome-detail">Tier-1 Fintech, European MSSP / SOCaaS &amp; enterprise defense</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-value">ISO 17024</div>
+            <div class="outcome-label">Accredited Credentials</div>
+            <div class="outcome-detail">CompTIA Security+ ce &amp; EC-Council CHFI v11</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview & Stack -->
+    <section class="section" id="overview">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">01 · Overview &amp; Capabilities</span>
+          <h2 class="section-title">Engineering Philosophy &amp; Core Stack</h2>
+        </div>
+
+        <div class="overview-grid">
+          <!-- Philosophy & Domains -->
+          <div class="overview-narrative">
+            <blockquote class="manifesto-quote">
+              “Effective security isn't about blocking everything with blind rules — it's about designing deterministic systems, optimizing telemetry pipelines, and automating away operational friction.”
+            </blockquote>
+
+            <div class="domain-list">
+              <div class="domain-item">
+                <h3 class="domain-title">Security Platform Engineering</h3>
+                <p class="domain-desc">
+                  Production Wazuh SIEM clusters, TB-scale OpenSearch indexing optimization, DFIR IRIS case management, and StackStorm SOAR orchestration.
+                </p>
+              </div>
+              <div class="domain-item">
+                <h3 class="domain-title">Detection &amp; Incident Response</h3>
+                <p class="domain-desc">
+                  Cyber Kill Chain severity escalation, MITRE ATT&amp;CK mapping, and NIST SP 800-61 forensic workflows built for defensible, regulator-ready evidence handling.
+                </p>
+              </div>
+              <div class="domain-item">
+                <h3 class="domain-title">Cloud &amp; Security Automation</h3>
+                <p class="domain-desc">
+                  Serverless AWS Lambda pipelines, CloudTrail detection engineering, and automated compliance controls aligned with ISO/IEC 27001 and PCI DSS.
+                </p>
+              </div>
+              <div class="domain-item">
+                <h3 class="domain-title">Network &amp; Virtualization</h3>
+                <p class="domain-desc">
+                  Segmented Proxmox VE environments using Router-on-a-Stick topologies — handling L2 bridging at the hypervisor layer and L3 routing via WireGuard inside hardened LXC containers.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technology Matrix -->
+          <div class="stack-panel">
+            <div class="stack-panel-header">
+              <h3 class="stack-panel-title">Technology Matrix</h3>
+              <span class="stack-panel-meta">Production Tooling</span>
+            </div>
+
+            <div class="stack-groups">
+              <div class="stack-group">
+                <span class="stack-category">SIEM &amp; Log Optimization</span>
+                <div class="stack-tags">
+                  <span class="tag">Wazuh</span>
+                  <span class="tag">OpenSearch</span>
+                  <span class="tag">ELK Stack</span>
+                </div>
+              </div>
+
+              <div class="stack-group">
+                <span class="stack-category">SOAR &amp; Incident Response</span>
+                <div class="stack-tags">
+                  <span class="tag">StackStorm</span>
+                  <span class="tag">DFIR IRIS</span>
+                  <span class="tag">Velociraptor</span>
+                  <span class="tag">MISP TIP</span>
+                </div>
+              </div>
+
+              <div class="stack-group">
+                <span class="stack-category">Cloud &amp; Automations</span>
+                <div class="stack-tags">
+                  <span class="tag">AWS</span>
+                  <span class="tag">Lambda Serverless</span>
+                  <span class="tag">CloudTrail Detection</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">Linux (Debian/RHEL)</span>
+                </div>
+              </div>
+
+              <div class="stack-group">
+                <span class="stack-category">Virtualization &amp; Networking</span>
+                <div class="stack-tags">
+                  <span class="tag">Proxmox VE</span>
+                  <span class="tag">WireGuard</span>
+                  <span class="tag">LXC Containers</span>
+                  <span class="tag">Router-on-a-Stick</span>
+                  <span class="tag">L2/L3 Segmentation</span>
+                </div>
+              </div>
+
+              <div class="stack-group">
+                <span class="stack-category">Engineering &amp; Scripting</span>
+                <div class="stack-tags">
+                  <span class="tag">Python 3</span>
+                  <span class="tag">Bash</span>
+                  <span class="tag">REST APIs</span>
+                  <span class="tag">Telegram Bots</span>
+                  <span class="tag">GitLab CI/CD</span>
+                </div>
+              </div>
+
+              <div class="stack-group">
+                <span class="stack-category">Frameworks &amp; Compliance</span>
+                <div class="stack-tags">
+                  <span class="tag">Cyber Kill Chain</span>
+                  <span class="tag">MITRE ATT&amp;CK</span>
+                  <span class="tag">NIST SP 800-61</span>
+                  <span class="tag">ISO/IEC 27001</span>
+                  <span class="tag">PCI DSS</span>
+                  <span class="tag">Chain of Custody</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Credentials -->
+    <section class="section section-alt" id="credentials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">02 · Credentials</span>
+          <h2 class="section-title">Active Industry Certifications</h2>
+          <p class="section-subtitle">Accredited credentials across enterprise security architecture, operations governance, and digital forensics investigation.</p>
+        </div>
+
+        <div class="certs-grid">
+          <article class="cert-card">
+            <div class="cert-media">
+              <img src="https://images.credly.com/size/340x340/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob" alt="CompTIA Security+ ce Badge" class="cert-badge-img" width="108" height="108">
+            </div>
+            <div class="cert-body">
+              <div class="cert-top-row">
+                <span class="cert-accreditation">ISO/IEC 17024 · DoD 8570.01-M</span>
+                <span class="cert-status">Active</span>
+              </div>
+              <h3 class="cert-name">CompTIA Security+ ce</h3>
+              <p class="cert-issuer">Security Architecture &amp; Operations</p>
+              <p class="cert-desc">
+                Baseline enterprise cybersecurity architecture, network defense, risk management, threat mitigation, identity controls, and operational security governance.
+              </p>
+            </div>
+          </article>
+
+          <article class="cert-card">
+            <div class="cert-media">
+              <!-- Official EC-Council CHFI v11 Digital Badge -->
+              <img src="assets/chfi-v11-badge.png" alt="EC-Council CHFI v11 Badge" class="cert-badge-img" width="108" height="108">
+            </div>
+            <div class="cert-body">
+              <div class="cert-top-row">
+                <span class="cert-accreditation">ANSI 17024 · Digital Forensics &amp; IR</span>
+                <span class="cert-status">Active</span>
+              </div>
+              <h3 class="cert-name">EC-Council CHFI v11</h3>
+              <p class="cert-issuer">Computer Hacking Forensic Investigator</p>
+              <p class="cert-desc">
+                Forensic investigation methodologies, digital evidence acquisition, chain of custody preservation, volatile memory analysis, and defensible incident dossiers.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repositories -->
+    <section class="section" id="repositories">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">03 · Open Source</span>
+          <h2 class="section-title">Featured Security Repositories</h2>
+          <p class="section-subtitle">Production-focused Wazuh detection engineering and curated vendor integration tooling.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-type">Detection Ruleset · Wazuh SIEM</span>
+              <a href="https://github.com/nix-warden/NixWarden-Wazuh-Rules" target="_blank" rel="noopener noreferrer" class="project-ext-link" aria-label="View NixWarden-Wazuh-Rules on GitHub">
+                <svg class="icon" aria-hidden="true"><use href="#icon-github"/></svg> Source <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-external"/></svg>
+              </a>
+            </div>
+
+            <h3 class="project-title">
+              <a href="https://github.com/nix-warden/NixWarden-Wazuh-Rules" target="_blank" rel="noopener noreferrer">
+                NixWarden-Wazuh-Rules
+              </a>
+            </h3>
+
+            <p class="project-summary">
+              Hardened “Golden Ruleset” for production Wazuh deployments, engineered to eliminate false positives in high-load enterprise clusters.
+            </p>
+
+            <ul class="project-highlights">
+              <li><strong>Namespace Management:</strong> Collision-free rule ID ranges (100,000–199,999) preventing manager service failures.</li>
+              <li><strong>Noise Reduction:</strong> Performance-optimized detection logic maintaining high signal-to-noise ratio at scale.</li>
+              <li><strong>Threat Mapping:</strong> 100% tagged with adversary techniques for structured hunt queries.</li>
+            </ul>
+
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="tag">Wazuh XML</span>
+                <span class="tag">MITRE ATT&amp;CK</span>
+                <span class="tag">SIEM Tuning</span>
+              </div>
+              <span class="project-license">MIT License</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <span class="project-type">Integration Suite · DFIR IRIS &amp; MISP</span>
+              <a href="https://github.com/nix-warden/wazuh-custom-integrations" target="_blank" rel="noopener noreferrer" class="project-ext-link" aria-label="View wazuh-custom-integrations on GitHub">
+                <svg class="icon" aria-hidden="true"><use href="#icon-github"/></svg> Source <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-external"/></svg>
+              </a>
+            </div>
+
+            <h3 class="project-title">
+              <a href="https://github.com/nix-warden/wazuh-custom-integrations" target="_blank" rel="noopener noreferrer">
+                wazuh-custom-integrations
+              </a>
+            </h3>
+
+            <p class="project-summary">
+              Curated aggregator of verified, vendor-backed third-party integration modules for Wazuh SIEM/XDR deployments.
+            </p>
+
+            <ul class="project-highlights">
+              <li><strong>Vendor-Backed Modules:</strong> Curated integration scripts paired with step-by-step production deployment guides.</li>
+              <li><strong>DFIR-IRIS Forwarder:</strong> Automated REST API alert ingestion with field mapping tables and validation tests.</li>
+              <li><strong>Modular Structure:</strong> Standardized contribution model supporting MISP, Shuffle, and DFIR-IRIS.</li>
+            </ul>
+
+            <div class="project-footer">
+              <div class="project-tags">
+                <span class="tag">Python 3</span>
+                <span class="tag">REST API</span>
+                <span class="tag">DFIR-IRIS</span>
+              </div>
+              <span class="project-license">MIT License</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Writing -->
+    <section class="section section-alt" id="writing">
+      <div class="container">
+        <div class="section-header header-with-action">
+          <div>
+            <span class="section-kicker">04 · Publications</span>
+            <h2 class="section-title">Technical Writing on Medium</h2>
+            <p class="section-subtitle">Research and field notes on digital forensics, practical limits of AI in security, and hardware/OS memory defense.</p>
+          </div>
+          <a href="https://medium.com/@NixWarden" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            <svg class="icon" aria-hidden="true"><use href="#icon-medium"/></svg> All Articles
+          </a>
+        </div>
+
+        <div class="articles-grid">
+          <article class="article-card">
+            <div class="article-meta">
+              <span class="article-category">Digital Forensics</span>
+              <span class="article-platform">Medium</span>
+            </div>
+            <h3 class="article-title">
+              <a href="https://medium.com/@NixWarden/failing-the-chfi-taught-me-how-to-actually-study-forensics-and-clear-the-retake-in-2-5-hours-608c8aab319d" target="_blank" rel="noopener noreferrer">
+                Failing the CHFI Taught Me How to Actually Study Forensics (and Clear the Retake in 2.5 Hours)
+              </a>
+            </h3>
+            <p class="article-excerpt">
+              Lessons from overcoming the CHFI v11 exam setback and building a structured, hands-on digital forensics methodology.
+            </p>
+            <div class="article-footer">
+              <a href="https://medium.com/@NixWarden/failing-the-chfi-taught-me-how-to-actually-study-forensics-and-clear-the-retake-in-2-5-hours-608c8aab319d" target="_blank" rel="noopener noreferrer" class="read-link">
+                Read article <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="article-card">
+            <div class="article-meta">
+              <span class="article-category">AI &amp; Security Engineering</span>
+              <span class="article-platform">Medium</span>
+            </div>
+            <h3 class="article-title">
+              <a href="https://medium.com/@NixWarden/the-illusion-of-autonomy-how-ai-is-changing-the-rules-in-tech-security-and-talent-2f2e81cf3124" target="_blank" rel="noopener noreferrer">
+                The Illusion of Autonomy: How AI Is Changing the Rules in Tech, Security, and Talent
+              </a>
+            </h3>
+            <p class="article-excerpt">
+              Separating real automation value from hype — how AI reshapes engineering workflows, security operations, and talent evaluation.
+            </p>
+            <div class="article-footer">
+              <a href="https://medium.com/@NixWarden/the-illusion-of-autonomy-how-ai-is-changing-the-rules-in-tech-security-and-talent-2f2e81cf3124" target="_blank" rel="noopener noreferrer" class="read-link">
+                Read article <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="article-card">
+            <div class="article-meta">
+              <span class="article-category">Mobile &amp; Hardware Security</span>
+              <span class="article-platform">Medium</span>
+            </div>
+            <h3 class="article-title">
+              <a href="https://medium.com/@NixWarden/smartphones-memory-protection-at-the-end-of-2025-iphone-17-vs-samsung-vs-other-android-devices-8557019b62be" target="_blank" rel="noopener noreferrer">
+                Smartphones Memory Protection at the End of 2025: iPhone 17 vs. Samsung vs. Other Android Devices
+              </a>
+            </h3>
+            <p class="article-excerpt">
+              A comparative deep dive into hardware-assisted memory safety, MTE/PAC implementations, and exploit mitigation across flagship mobile ecosystems.
+            </p>
+            <div class="article-footer">
+              <a href="https://medium.com/@NixWarden/smartphones-memory-protection-at-the-end-of-2025-iphone-17-vs-samsung-vs-other-android-devices-8557019b62be" target="_blank" rel="noopener noreferrer" class="read-link">
+                Read article <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">05 · Experience</span>
+          <h2 class="section-title">Career Snapshot</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-aside">
+              <span class="role-period">Dec 2025 – Present</span>
+              <span class="company-name">Tier-1 Fintech &amp; Payment Gateway</span>
+              <span class="company-note">Confidential</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="role-title">Security Platform Architect / Detection &amp; Response Engineer</h3>
+              <ul class="role-highlights">
+                <li>Reduced <code>auditd</code> log volume by &gt;95% through targeted analysis rule optimization and offloading integrity tracking to <strong>Wazuh FIM</strong> without losing security observability; resolved OpenSearch indexing bottlenecks.</li>
+                <li>Mapped real-time threat detections to the <strong>Cyber Kill Chain</strong>, establishing structured event severity escalation tiers and automated response workflows via Open Source <strong>SOAR</strong> and <strong>IR platform</strong>.</li>
+                <li>Engineered serverless cloud security automations (AWS Lambda / CloudTrail) and compliance controls aligned with <strong>ISO/IEC 27001</strong>, <strong>PCI DSS</strong>, and <strong>NIST SP 800-61</strong> incident handling.</li>
+                <li>Investigated multi-stage threats and zero-day vulnerabilities to extract actionable IOCs and prepare regulator-ready forensic dossiers.</li>
+              </ul>
+              <div class="role-tags">
+                <span class="tag">Wazuh</span>
+                <span class="tag">OpenSearch</span>
+                <span class="tag">Cyber Kill Chain</span>
+                <span class="tag">NIST SP 800-61</span>
+                <span class="tag">ISO/IEC 27001</span>
+                <span class="tag">PCI DSS</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-aside">
+              <span class="role-period">Aug 2025 – Dec 2025</span>
+              <span class="company-name">European MSSP &amp; SOCaaS Provider</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="role-title">SOC Solution Architect &amp; Tech Lead</h3>
+              <ul class="role-highlights">
+                <li>Designed and deployed a multi-tenant, multi-client Wazuh SIEM platform with a centralized CCS environment.</li>
+                <li>Modeled hardware sizing, network segmentation (TLS, routing, cluster roles), and TCO for production SOCaaS delivery.</li>
+              </ul>
+              <div class="role-tags">
+                <span class="tag">Wazuh SIEM</span>
+                <span class="tag">Multi-Tenancy</span>
+                <span class="tag">SOCaaS Architecture</span>
+                <span class="tag">Network Segmentation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-aside">
+              <span class="role-period">Jun 2021 – Jun 2025 · 4 yrs 1 mo</span>
+              <span class="company-name">Cyber Security &amp; Software Defense Firm</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="role-title">Cyber Defense Engineer &amp; Junior Engineer</h3>
+              <ul class="role-highlights">
+                <li>Managed enterprise SIEM deployment and maintenance alongside internal infrastructure security audits.</li>
+                <li>Delivered CI/CD pipeline security enhancements, server hardening, and incident handling across Linux environments.</li>
+              </ul>
+              <div class="role-tags">
+                <span class="tag">Cyber Defense</span>
+                <span class="tag">SIEM Operations</span>
+                <span class="tag">CI/CD Security</span>
+                <span class="tag">Incident Handling</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="contact-layout">
+          <div class="contact-intro">
+            <span class="section-kicker">06 · Contact</span>
+            <h2 class="section-title">Direct Channels</h2>
+            <p class="contact-desc">
+              Open to technical exchange on security platform architecture, high-load telemetry tuning, detection engineering, and digital forensics.
+            </p>
+          </div>
+
+          <div class="contact-channels">
+            <a href="https://github.com/nix-warden" target="_blank" rel="noopener noreferrer" class="contact-row">
+              <div class="channel-left">
+                <svg class="icon channel-icon" aria-hidden="true"><use href="#icon-github"/></svg>
+                <div>
+                  <span class="channel-label">GitHub</span>
+                  <span class="channel-value">github.com/nix-warden</span>
+                </div>
+              </div>
+              <svg class="icon icon-sm channel-arrow" aria-hidden="true"><use href="#icon-external"/></svg>
+            </a>
+
+            <a href="https://medium.com/@NixWarden" target="_blank" rel="noopener noreferrer" class="contact-row">
+              <div class="channel-left">
+                <svg class="icon channel-icon" aria-hidden="true"><use href="#icon-medium"/></svg>
+                <div>
+                  <span class="channel-label">Medium Publications</span>
+                  <span class="channel-value">medium.com/@NixWarden</span>
+                </div>
+              </div>
+              <svg class="icon icon-sm channel-arrow" aria-hidden="true"><use href="#icon-external"/></svg>
+            </a>
+
+            <div class="contact-row contact-row-split">
+              <a href="mailto:nixwarden@protonmail.com" class="channel-left channel-mail-link">
+                <svg class="icon channel-icon" aria-hidden="true"><use href="#icon-mail"/></svg>
+                <div>
+                  <span class="channel-label">Encrypted Mail</span>
+                  <span class="channel-value" id="contactEmail">nixwarden@protonmail.com</span>
+                </div>
+              </a>
+              <button type="button" class="copy-btn" id="copyEmailBtn" aria-label="Copy email address">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-copy"/></svg> Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <p class="footer-copy">© 2026 NixWarden — Security Platform Architecture &amp; Detection Engineering.</p>
+      <a href="#hero" class="back-to-top">Back to top <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-up"/></svg></a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
